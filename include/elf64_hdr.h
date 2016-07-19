@@ -2,6 +2,10 @@
 #ifndef __HEADER_H__
 #define __HEADER_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 #include <stdio.h>
 #include "types.h"
@@ -71,5 +75,9 @@ struct Elf64_Ehdr_s {
 Elf64_Ehdr *read_header(FILE *bin_file);
 void Elf64_write_ehr(FILE *bin_file, Elf64_Ehdr *hdr);
 void print_header_info(Elf64_Ehdr *ehr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

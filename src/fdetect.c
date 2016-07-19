@@ -72,13 +72,13 @@ Elf64_Func **get_func(ELF *bin) {
 	/* Get the number of functions */
 	bin->ftab_num = get_func_num(bin);
 	/* Allocate the array of function structures */
- 	funcs = malloc(bin->ftab_num * sizeof(Elf64_Func *));
+ 	funcs = (Elf64_Func**) malloc(bin->ftab_num * sizeof(Elf64_Func *));
 	/* Iterate on the symbol table entries */
 	for (i = 0; i < bin->symtab_num; i++) {
 		/* For each entry, check if it is a function entry */
 		if (is_func(bin->symtab[i])) {
 			/* Alocate a new function structure */
-			funcs[j] = malloc(sizeof(Elf64_Func));
+			funcs[j] = (Elf64_Func*) malloc(sizeof(Elf64_Func));
 			/* Get the address of the function */
 			funcs[j]->f_addr = (Elf64_Off) bin->symtab[i]->st_value;
 			/* Get the offset of the function in file */

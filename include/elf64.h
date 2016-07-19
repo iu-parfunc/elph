@@ -2,6 +2,10 @@
 #ifndef __BINARY_H__
 #define __BINARY_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include "elf64_hdr.h"
 #include "elf64_shr.h"
@@ -24,5 +28,9 @@ struct ELF_s {
 };
 
 ELF *elf64_read(char *e_fname);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -30,7 +30,7 @@ Elf64_Sym **read_sym_tab(FILE *bin, Elf64_Shdr *symtab_hr, Elf64_Xword *nb_entri
 	/* Computing the number of entries in the table */
 	*nb_entries = symtab_hr->sh_size / sizeof(Elf64_Sym);
 	/* Allocate the array of symbol entries */
- 	symtab = malloc(*nb_entries * sizeof(Elf64_Sym *));
+ 	symtab = (Elf64_Sym**) malloc(*nb_entries * sizeof(Elf64_Sym *));
 
 	/* Seek the file at the beginning of the symbol table */
 	fseek(bin, symtab_hr->sh_offset, SEEK_SET);
@@ -38,7 +38,7 @@ Elf64_Sym **read_sym_tab(FILE *bin, Elf64_Shdr *symtab_hr, Elf64_Xword *nb_entri
 	/* Read the symbols, one by one */
 	for (i = 0; i < *nb_entries; i++) {
 		/* Allocate the symbol structure */
-		symtab[i] = malloc(sizeof(Elf64_Sym));
+		symtab[i] = (Elf64_Sym*) malloc(sizeof(Elf64_Sym));
 		/* Read the name position in string table of the symbol */
 		symtab[i]->st_name = Elf64_read_word_le(bin);
 		/* Read info */
@@ -74,7 +74,7 @@ char *get_sym_name(FILE *bin, Elf64_Sym *sym, Elf64_Off strtab_offset) {
 	offset in string table is given by sym->st_name */
 	unsigned int offset = strtab_offset + sym->st_name;
 	/* Buffer to read the chars in file until \0 */
-	char *buffer = malloc(255 * sizeof(char));
+	char *buffer = (char*) malloc(255 * sizeof(char));
 	/* Symbol name */
 	char *sym_name;
 	/* Name length */
@@ -94,7 +94,7 @@ char *get_sym_name(FILE *bin, Elf64_Sym *sym, Elf64_Off strtab_offset) {
 	MAX length */
 	buffer[name_size - 1] = '\0';
 	/* Allocate symbol name string */
-	sym_name = malloc(name_size * sizeof(char));
+	sym_name = (char*) malloc(name_size * sizeof(char));
 	/* Copy name */
 	strcpy(sym_name, buffer);
 	/* Free buffer */

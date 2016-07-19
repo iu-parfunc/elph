@@ -54,7 +54,7 @@ void Elf64_patch_existing_segment(ELF *bin, Elf64_Phdr *phr, unsigned char *pl, 
 
 Elf64_Phdr *Elf64_create_phr(Elf64_Word p_flags, Elf64_Addr addr_base, 
 		Elf64_Xword p_align, Elf64_Off p_offset, Elf64_Half p_size) {
-	Elf64_Phdr *phr = malloc(sizeof(Elf64_Phdr));
+	Elf64_Phdr *phr = (Elf64_Phdr*) malloc(sizeof(Elf64_Phdr));
 	phr->p_type = PT_LOAD;
 	phr->p_flags = p_flags;
 	phr->p_offset = p_offset;

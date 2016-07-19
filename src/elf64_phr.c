@@ -27,7 +27,7 @@
  */
 Elf64_Phdr *Elf64_read_phr(FILE *bin, Elf64_Addr offset) {
 	/* Allocate a program header */
-	Elf64_Phdr *phr = malloc(sizeof(Elf64_Phdr));
+	Elf64_Phdr *phr = (Elf64_Phdr*) malloc(sizeof(Elf64_Phdr));
 	/* Seek to the beginning of the program header */
 	fseek(bin, offset, SEEK_SET);
 	/* Read type */
@@ -71,7 +71,7 @@ Elf64_Phdr **Elf64_read_phr_all(FILE *bin,
 				Elf64_Off phr_off, 
 				Elf64_Half phr_entrysize) {
 	/* Allocate an array of program headers to be filled */
-	Elf64_Phdr **phr_tab = malloc(sizeof(Elf64_Phdr *) * phr_num);
+	Elf64_Phdr **phr_tab = (Elf64_Phdr**) malloc(sizeof(Elf64_Phdr *) * phr_num);
 	/* Offset of the program header to be read (bytes into file) */
 	Elf64_Off offset = 0;
 	size_t i;

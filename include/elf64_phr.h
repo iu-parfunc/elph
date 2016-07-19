@@ -1,4 +1,8 @@
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "types.h"
 #include "elf64.h"
 
@@ -50,3 +54,8 @@ Elf64_Half Elf64_get_phr_idx(ELF *bin, Elf64_Phdr *phr);
 void Elf64_print_phr_info(ELF *bin);
 
 void Elf64_replace_phr(ELF *bin, Elf64_Phdr *phr, Elf64_Half idx);
+
+#ifdef __cplusplus
+}
+#endif
+

@@ -2,6 +2,11 @@
 #ifndef __SYM_TAB_H__
 #define __SYM_TAB_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include <stdio.h>
 #include "types.h"
 
@@ -37,5 +42,10 @@ Elf64_Sym **read_sym_tab(FILE *bin, Elf64_Shdr *symtab_hr, Elf64_Xword *nb_entri
 char *get_sym_name(FILE *bin, Elf64_Sym *sym, Elf64_Off strtab_offset);
 
 void print_sym_info(ELF *bin);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

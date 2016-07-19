@@ -257,7 +257,7 @@ bool read_elf_version_four_bytes(Elf64_Ehdr *ehr, FILE *bin) {
 Elf64_Ehdr *read_header(FILE *bin_file) {
 	
 	/* Allocate header structure */
-	Elf64_Ehdr *ehr = malloc(sizeof(Elf64_Ehdr));
+	Elf64_Ehdr *ehr = (Elf64_Ehdr*) malloc(sizeof(Elf64_Ehdr));
 
 	/* Seek to the beginning of the file */
 	fseek(bin_file, 0L, SEEK_SET);

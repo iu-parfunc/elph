@@ -2,6 +2,10 @@
 #ifndef __SECTION_H__
 #define __SECTION_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include "types.h"
 #include "elf64.h"
@@ -61,5 +65,9 @@ Elf64_Shdr **read_shr_all(FILE *bin, Elf64_Half shr_num, Elf64_Off shr_off, Elf6
 Elf64_Half get_section_idx(ELF *bin, char *section_name);
 
 void print_shr_info_all(ELF *bin);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

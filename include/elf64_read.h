@@ -2,6 +2,10 @@
 #ifndef __ELF64_READ_H__
 #define __ELF64_READ_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include "types.h"
 
@@ -14,5 +18,10 @@ Elf64_Off Elf64_read_off_le(FILE *bin_file);
 Elf64_Addr Elf64_read_addr_le(FILE *bin_file);
 
 unsigned char Elf_read_byte(FILE *bin_file);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

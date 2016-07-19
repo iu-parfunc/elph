@@ -2,6 +2,11 @@
 #ifndef __ELF64_WRITE_H__
 #define __ELF64_WRITE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include <stdio.h>
 #include "types.h"
 
@@ -12,5 +17,10 @@ void Elf64_write_off_le(FILE *bin_file, Elf64_Off off);
 void Elf64_write_addr_le(FILE *bin_file, Elf64_Addr addr);
 
 void Elf_write_byte(FILE *bin_file, unsigned char byte);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

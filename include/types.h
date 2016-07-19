@@ -2,6 +2,11 @@
 #ifndef __TYPES_H__
 #define __TYPES_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include <stdint.h>
 
 typedef uint64_t Elf64_Addr;
@@ -29,5 +34,10 @@ typedef struct Elf64_Func_s Elf64_Func;
 
 /* Defined in elf64_phr.h */
 typedef struct Elf64_Phdr_s Elf64_Phdr;
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

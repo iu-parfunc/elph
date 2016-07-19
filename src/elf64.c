@@ -22,7 +22,7 @@
  *
  */
 ELF *elf64_read(char *e_fname) {
-	ELF *bin = malloc(sizeof(ELF));
+	ELF *bin = (ELF*) malloc(sizeof(ELF));
 	// TODO check existence of file 
 
 	std_out("[*] Open binary file\n");

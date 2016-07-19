@@ -4,7 +4,7 @@ OBJDIR=obj
 HDRDIR=include
 
 EXEC=elph
-CC=gcc
+CC=g++
 CFLAGS=-W -Wall -Wextra -I $(HDRDIR) -g -fPIC
 LDFLAGS=
 
@@ -25,10 +25,13 @@ $(OBJDIR)/$(EXEC).o: $(DEPS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
+install: $(OBJ)
+	ar rc libelph.a $(OBJ)
+
 .PHONY: clean mrproper
 
 clean:
-	rm -rf $(OBJDIR)/*.o
+	rm -rf $(OBJDIR)/*.o *.a
 
 mproper: clean
 	rm -rf $(EXEC)

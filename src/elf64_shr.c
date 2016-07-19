@@ -32,7 +32,7 @@ Elf64_Shdr *read_shr(FILE *bin, Elf64_Off offset) {
 	/* Seek to the beginning of the section header */
 	fseek(bin, offset, SEEK_SET);
 	/* Allocate a section header */
-	Elf64_Shdr *shr = malloc(sizeof(Elf64_Shdr));
+	Elf64_Shdr *shr = (Elf64_Shdr*)malloc(sizeof(Elf64_Shdr));
 	/* Read section name index in setion name table */
 	shr->sh_name = Elf64_read_word_le(bin);
 	/* Read section type */
@@ -75,7 +75,7 @@ Elf64_Shdr *read_shr(FILE *bin, Elf64_Off offset) {
  */
 Elf64_Shdr **read_shr_all(FILE *bin, Elf64_Half shr_num, Elf64_Off shr_off, Elf64_Half shr_entrysize) {
 	/* Allocate an array of section headers to be filled */
-	Elf64_Shdr **shr_tab = malloc(sizeof(Elf64_Shdr *) * shr_num);
+	Elf64_Shdr **shr_tab = (Elf64_Shdr**) malloc(sizeof(Elf64_Shdr *) * shr_num);
 	/* Offset of a given section header (bytes into file) */
 	Elf64_Off offset = 0;
 	size_t i;
@@ -176,7 +176,7 @@ char *get_section_name(FILE *bin, Elf64_Shdr *shr, Elf64_Off strtab_offset) {
  	shr->sh_name gives the offset in str table */
 	unsigned int offset = strtab_offset + shr->sh_name;
 	/* Allocate a buffer to read the name until next \0 */
-	char *buffer = malloc(COLUMN_NAME_LENGTH * sizeof(char));
+	char *buffer = (char*) malloc(COLUMN_NAME_LENGTH * sizeof(char));
 	/* String that will finally contain the section name */
 	char *section_name;
 	/* Length of the section name */
@@ -193,7 +193,7 @@ char *get_section_name(FILE *bin, Elf64_Shdr *shr, Elf64_Off strtab_offset) {
 	
 	/* Allocation of the string (of size nam_size + 1 to be able
 	to add \0 if we stopped because of the MAX length */
-	section_name = malloc((name_size + 1) * sizeof(char));
+	section_name = (char*) malloc((name_size + 1) * sizeof(char));
 	/* Adding \0 at the end of the buffer (in case we stopped because of
 	max length) */
 	buffer[name_size] = '\0';
