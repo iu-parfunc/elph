@@ -265,32 +265,40 @@ Elf64_Ehdr *read_header(FILE *bin_file) {
 	/* Check if it is an ELF binary */
 	if (!read_magic(ehr, bin_file)) {
 		printf("Not an ELF binary\n");
+    free(ehr);
 		exit(EXIT_NOT_ELF);
 	}
 	
 	/* Get ELF class: 32 or 64 bits ? */
 	if (!read_elf_class(ehr, bin_file)) {
 		printf("Unknown ELF class: %x\n", ehr->e_ident[EI_CLASS]);
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_CLASS);
 	}
 
 	/* Currently, only 64 bit ELF are supported */
-	if (ehr->e_ident[EI_CLASS] != ELF_CLASS_64)
+	if (ehr->e_ident[EI_CLASS] != ELF_CLASS_64) {
+    free(ehr);
 		exit(EXIT_CLASS_NOT_SUPPORTED);
+  }
 
 	/* Get word interpretation: LE/BE ? */
 	if (!read_data(ehr, bin_file)) {
 		printf("Unknown interpretation: %x\n", ehr->e_ident[EI_DATA]);
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_INTERP);
 	}	
 
 	/* Currently, only LE is supported */
-	if (ehr->e_ident[EI_DATA] != ELF_LE)
+	if (ehr->e_ident[EI_DATA] != ELF_LE) {
+    free(ehr);
 		exit(EXIT_DATA_NOT_SUPPORTED);
+  }
 
 	/* Read ELF version (should be 1) */
 	if (!read_elf_version_one_byte(ehr, bin_file)) {
 		printf("Unknown ELF version\n");
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_VERSION);
 	}
 
@@ -303,18 +311,21 @@ Elf64_Ehdr *read_header(FILE *bin_file) {
 	/* Read type of binary (shared, reloc, etc.) */
 	if (!read_type_of_bin(ehr, bin_file)) {
 		printf("Unknown type of binary: %x\n", ehr->e_type);
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_TYPE);
 	}	
 
 	/* Read the target architecture */
 	if (!read_machine(ehr, bin_file)) {
 		printf("Unknown target architecture: %x\n", ehr->e_machine);
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_ARCHITECTURE);
 	}
 
 	/* Read ELF version (should be 1) */
 	if (!read_elf_version_four_bytes(ehr, bin_file)) {
 		printf("Unknown ELF version: %x\n", ehr->e_version);
+    free(ehr);
 		exit(EXIT_UNKNOWN_ELF_VERSION);
 	}
 

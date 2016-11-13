@@ -66,3 +66,27 @@ ELF *elf64_read(char *e_fname) {
 	}
 	return bin;
 }
+
+void free_elf64(ELF* bin) {
+
+  int i;
+  for (i=0; i < bin->ehr->e_shnum; i++) {
+    free(bin->shr[i]);
+  }
+
+  free(bin->shr);
+
+  for (i=0; i < bin->ehr->e_phnum; i++) {
+    free(bin->phr[i]);
+  }
+
+  free(bin->ehr);
+
+  for (i=0; i < bin->symtab_num; i++) {
+    free(bin->symtab[i]);
+  }
+
+  free(bin->symtab);
+  free(bin->phr);
+  free(bin);
+}

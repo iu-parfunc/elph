@@ -220,11 +220,13 @@ Elf64_Half get_section_idx(ELF *bin, char *s_name) {
 	Elf64_Half idx = 0;
 	Elf64_Off stroff = bin->shr[bin->ehr->e_shstrndx]->sh_offset;
 	while (idx < bin->ehr->e_shnum) {
-		if (strcmp(s_name, get_section_name(bin->file, 
-						bin->shr[idx], 
-						stroff)) == 0)
+    char* sec_name = get_section_name(bin->file, bin->shr[idx], stroff);
+		if (strcmp(s_name, sec_name) == 0) {
+      free(sec_name);
 			return idx;
+    }
 		idx++;
+    free(sec_name);
 	}
 	return 0xFFFF;
 }

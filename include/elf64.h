@@ -28,6 +28,7 @@ struct ELF_s {
 };
 
 ELF *elf64_read(char *e_fname);
+void free_elf64(ELF* bin);
 
 #ifdef __cplusplus
 }
