@@ -25,7 +25,7 @@ ELF *elf64_read(char *e_fname) {
 	ELF *bin = (ELF*) malloc(sizeof(ELF));
 	// TODO check existence of file 
 
-	std_out("[*] Open binary file\n");
+	// std_out("[*] Open binary file\n");
 	bin->file = fopen(e_fname, "r");
 
 	fseek(bin->file, 0L, SEEK_END);
